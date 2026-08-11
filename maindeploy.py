@@ -6,538 +6,323 @@ app = FastAPI()
 
 @app.get("/", response_class=HTMLResponse)
 async def portfolio():
-
     html_content = """
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Student Portfolio - Backend Assignments</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Alex Njoroge | Backend Development Portfolio</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 40px auto;
-        }
-
-        /* HEADER */
-
-        .header {
-            background: linear-gradient(135deg, #111827, #1e3a8a);
-            color: white;
-            padding: 40px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
-        }
-
-        .header h1 {
-            font-size: 36px;
-            margin-bottom: 25px;
-        }
-
-        .student-info {
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        .admission {
-            color: #60a5fa;
-            font-weight: bold;
-        }
-
-        .email {
-            color: #93c5fd;
-        }
-
-        /* INTRO */
-
-        .intro {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .intro h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .intro p {
-            color: #6b7280;
-        }
-
-        /* ASSIGNMENTS */
-
-        .assignments {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .assignment {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 10px;
-            padding: 20px;
-            transition: 0.3s ease;
-        }
-
-        .assignment:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .assignment a {
-            text-decoration: none;
-            color: #1f2937;
-            display: block;
-        }
-
-        .lesson {
-            color: #2563eb;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .title {
-            font-size: 19px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .description {
-            color: #6b7280;
-            font-size: 14px;
-        }
-
-        .no-repository {
-            color: #9ca3af;
-            font-size: 14px;
-            margin-top: 8px;
-        }
-
-        /* FOOTER */
-
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 25px;
-            border-top: 1px solid #e5e7eb;
-            color: #6b7280;
-        }
-
-        footer p {
-            margin: 6px 0;
-        }
-
-        footer a {
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 600px) {
+        <style>
+            body {
+                font-family: 'Segoe UI', Arial, sans-serif;
+                margin: 40px;
+                background: #f5f5f5;
+            }
 
             .container {
-                width: 94%;
-                margin: 20px auto;
+                max-width: 900px;
+                margin: 0 auto;
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             }
 
-            .header {
-                padding: 25px;
+            h1 {
+                color: #2c3e50;
+                border-bottom: 3px solid #3498db;
+                padding-bottom: 10px;
             }
 
-            .header h1 {
-                font-size: 28px;
+            .student-info {
+                background: #e8f4fd;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
+
+            .student-info strong {
+                color: #2c3e50;
+            }
+
+            .admission {
+                font-size: 1.2em;
+                color: #2980b9;
+                font-weight: bold;
             }
 
             .assignment {
-                padding: 18px;
+                margin: 12px 0;
+                padding: 15px;
+                background: #f8f9fa;
+                border-radius: 8px;
+                border-left: 4px solid #3498db;
+                transition: all 0.3s ease;
             }
 
-        }
+            .assignment:hover {
+                background: #e8f4fd;
+                transform: translateX(5px);
+            }
 
-    </style>
+            .assignment a {
+                color: #0366d6;
+                text-decoration: none;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+            }
 
-</head>
+            .assignment a:hover {
+                text-decoration: underline;
+            }
 
+            .badge {
+                display: inline-block;
+                background: #3498db;
+                color: white;
+                padding: 2px 10px;
+                border-radius: 12px;
+                font-size: 0.8em;
+                margin-right: 10px;
+            }
 
-<body>
+            .lesson-topic {
+                color: #7f8c8d;
+                font-size: 0.9em;
+                margin-left: 10px;
+            }
+
+            .footer {
+                margin-top: 30px;
+                text-align: center;
+                color: #95a5a6;
+                font-size: 0.9em;
+                border-top: 1px solid #ecf0f1;
+                padding-top: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
 
     <div class="container">
 
+        <h1>📚 Backend Development Portfolio</h1>
 
-        <!-- STUDENT INFORMATION -->
-
-        <div class="header">
-
-            <h1>📚 Backend Development Portfolio</h1>
-
-            <div class="student-info">
-
-                <p>
-                    <strong>Student Name:</strong>
-                    Alex Njoroge
-                </p>
-
-                <p>
-                    <strong>Admission Number:</strong>
-                    <span class="admission">
-                        C027-01-0830/2024
-                    </span>
-                </p>
-
-                <p>
-                    <strong>Email:</strong>
-                    <span class="email">
-                        alex.njenga24@students.dkut.ac.ke
-                    </span>
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- BACKEND ASSIGNMENTS -->
-
-        <div class="intro">
-
-            <h2>💻 Backend Assignments</h2>
+        <div class="student-info">
 
             <p>
-                Click on any assignment to view the
-                complete code on GitHub.
+                <strong>Student Name:</strong>
+                Alex Njoroge
+            </p>
+
+            <p>
+                <strong>Admission Number:</strong>
+                <span class="admission">
+                    C027-01-0830/2024
+                </span>
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                alex.njenga24@students.dkut.ac.ke
             </p>
 
         </div>
 
 
-        <div class="assignments">
+        <h2>📝 Backend Assignments</h2>
 
+        <p style="color: #7f8c8d; margin-bottom: 20px;">
+            Click on any assignment to view the complete code on GitHub
+        </p>
 
-            <!-- LAB 1 -->
 
-            <div class="assignment">
+        
+        <!-- LESSON 3 -->
 
-                <a href="#" onclick="return false;">
+        <div class="assignment">
+            <a href="#" target="_blank">
 
-                    <div class="lesson">
-                        Lab 1
-                    </div>
+                <span class="badge">Lesson 3</span>
 
-                    <div class="title">
-                        HTTP & Your First API
-                    </div>
+                <span>Routing, Parameters & Request Bodies</span>
 
-                    <div class="description">
-                        FastAPI + Uvicorn, HTTP Methods, Status Codes
-                    </div>
+                <span class="lesson-topic">
+                    — Path Parameters, Query Parameters, Pydantic Validation
+                </span>
 
-                    <div class="no-repository">
-                        No Repository
-                    </div>
+            </a>
+        </div>
 
-                </a>
 
-            </div>
+        <!-- LESSON 4 -->
 
+        <div class="assignment">
+            <a
+                href="https://github.com/alexnjenga24/bookstore-api"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
 
-            <!-- LAB 2 -->
+                <span class="badge">Lesson 4</span>
 
-            <div class="assignment">
+                <span>PostgreSQL & SQLModel – Your First Database</span>
 
-                <a href="#" onclick="return false;">
+                <span class="lesson-topic">
+                    — ORM, Database Migrations, SQLModel
+                </span>
 
-                    <div class="lesson">
-                        Lab 2
-                    </div>
+            </a>
+        </div>
 
-                    <div class="title">
-                        Docker - Packaging Your API
-                    </div>
 
-                    <div class="description">
-                        Containers, Dockerfiles, Docker Compose
-                    </div>
+        <!-- LESSON 5 -->
 
-                    <div class="no-repository">
-                        No Repository
-                    </div>
+        <div class="assignment">
+            <a
+                href="https://github.com/alexnjenga24/product-api"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
 
-                </a>
+                <span class="badge">Lesson 5</span>
 
-            </div>
+                <span>CRUD Operations</span>
 
+                <span class="lesson-topic">
+                    — Create, Read, Update, Delete with Error Handling
+                </span>
 
-            <!-- LAB 3 -->
+            </a>
+        </div>
 
-            <div class="assignment">
 
-                <a href="#" onclick="return false;">
+        <!-- LESSON 6 -->
 
-                    <div class="lesson">
-                        Lab 3
-                    </div>
+        <div class="assignment">
+            <a
+                href="https://github.com/alexnjenga24/techvault-api"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
 
-                    <div class="title">
-                        Routing, Parameters & Request Bodies
-                    </div>
+                <span class="badge">Lesson 6</span>
 
-                    <div class="description">
-                        Path Parameters, Query Parameters,
-                        Pydantic Validation
-                    </div>
+                <span>Error Handling & Validation</span>
 
-                    <div class="no-repository">
-                        No Repository
-                    </div>
+                <span class="lesson-topic">
+                    — HTTPException, Custom Validators, Global Handlers
+                </span>
 
-                </a>
+            </a>
+        </div>
 
-            </div>
 
+        <!-- LESSON 7 -->
 
-            <!-- LAB 4 -->
+        <div class="assignment">
+            <a
+                href="https://github.com/alexnjenga24/healthtrack-api"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
 
-            <div class="assignment">
+                <span class="badge">Lesson 7</span>
 
-                <a
-                    href="https://github.com/alexnjenga24/bookstore-api"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+                <span>User Authentication – JWT & Password Hashing</span>
 
-                    <div class="lesson">
-                        Lab 4
-                    </div>
+                <span class="lesson-topic">
+                    — JWT Tokens, bcrypt, Login/Register Endpoints
+                </span>
 
-                    <div class="title">
-                        PostgreSQL & SQLModel – Your First Database
-                    </div>
+            </a>
+        </div>
 
-                    <div class="description">
-                        ORM, Database Migrations, SQLModel
-                    </div>
 
-                </a>
+        <!-- LESSON 8 -->
 
-            </div>
+        <div class="assignment">
+            <a
+                href="https://github.com/alexnjenga24/clinicguard-api"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
 
+                <span class="badge">Lesson 8</span>
 
-            <!-- LAB 5 -->
+                <span>Authorization & Rate Limiting</span>
 
-            <div class="assignment">
+                <span class="lesson-topic">
+                    — RBAC, Dependency Injection, Rate Limiting
+                </span>
 
-                <a
-                    href="https://github.com/alexnjenga24/product-api"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+            </a>
+        </div>
 
-                    <div class="lesson">
-                        Lab 5
-                    </div>
 
-                    <div class="title">
-                        CRUD Operations
-                    </div>
+        <!-- LESSON 9 -->
 
-                    <div class="description">
-                        Create, Read, Update, Delete with Error Handling
-                    </div>
+        <div class="assignment">
+            <a
+                href="https://github.com/alexnjenga24/sendit-api"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
 
-                </a>
+                <span class="badge">Lesson 9</span>
 
-            </div>
+                <span>File Uploads & External APIs</span>
 
+                <span class="lesson-topic">
+                    — File Validation, httpx, Environment Variables
+                </span>
 
-            <!-- LAB 6 -->
+            </a>
+        </div>
 
-            <div class="assignment">
 
-                <a
-                    href="https://github.com/alexnjenga24/techvault-api"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+        <!-- LESSON 10 -->
 
-                    <div class="lesson">
-                        Lab 6
-                    </div>
+        <div class="assignment">
+            <a
+                href="https://github.com/alexnjenga24/product-api-clouddeploy"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
 
-                    <div class="title">
-                        Error Handling & Validation
-                    </div>
+                <span class="badge">Lesson 10</span>
 
-                    <div class="description">
-                        HTTPException, Custom Validators, Global Handlers
-                    </div>
+                <span>Testing & Deployment (Cloud)</span>
 
-                </a>
+                <span class="lesson-topic">
+                    — Pytest, CI/CD, Render Deployment
+                </span>
 
-            </div>
-
-
-            <!-- LAB 7 -->
-
-            <div class="assignment">
-
-                <a
-                    href="https://github.com/alexnjenga24/healthtrack-api"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="lesson">
-                        Lab 7
-                    </div>
-
-                    <div class="title">
-                        User Authentication – JWT & Password Hashing
-                    </div>
-
-                    <div class="description">
-                        JWT Tokens, bcrypt, Login/Register Endpoints
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- LAB 8 -->
-
-            <div class="assignment">
-
-                <a
-                    href="https://github.com/alexnjenga24/clinicguard-api"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="lesson">
-                        Lab 8
-                    </div>
-
-                    <div class="title">
-                        Authorization & Rate Limiting
-                    </div>
-
-                    <div class="description">
-                        RBAC, Dependency Injection, Rate Limiting
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- LAB 9 -->
-
-            <div class="assignment">
-
-                <a
-                    href="https://github.com/alexnjenga24/sendit-api"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="lesson">
-                        Lab 9
-                    </div>
-
-                    <div class="title">
-                        File Uploads & External APIs
-                    </div>
-
-                    <div class="description">
-                        File Validation, httpx, Environment Variables
-                    </div>
-
-                </a>
-
-            </div>
-
-
-            <!-- LAB 10 -->
-
-            <div class="assignment">
-
-                <a
-                    href="https://github.com/alexnjenga24/product-api-clouddeploy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="lesson">
-                        Lab 10
-                    </div>
-
-                    <div class="title">
-                        Testing & Deployment (Cloud)
-                    </div>
-
-                    <div class="description">
-                        Pytest, CI/CD, Render Deployment
-                    </div>
-
-                </a>
-
-            </div>
-
-
+            </a>
         </div>
 
 
         <!-- FOOTER -->
 
-        <footer>
+        <div class="footer">
 
             <p>
-                📅 Last Updated: August 2026
+                📍 Deployed on Render | 📅 Last Updated: August 2026
             </p>
 
-            <p>
-                ⚠️ Deployed on Render |
-                <a
-                    href="https://github.com/alexnjenga24"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Source Code on GitHub
-                </a>
+            <p style="font-size: 0.8em;">
+                ⚠️ Click on any assignment link to view the complete
+                source code on GitHub
             </p>
 
-        </footer>
-
+        </div>
 
     </div>
 
-</body>
-
-</html>
-"""
+    </body>
+    </html>
+    """
 
     return HTMLResponse(content=html_content)
